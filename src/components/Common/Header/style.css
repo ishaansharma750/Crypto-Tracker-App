@@ -1,0 +1,57 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: var(--black);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+.links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+.link {
+  color: var(--grey);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: 500 !important;
+}
+.link:hover {
+  color: var(--white);
+  transition: all 0.3s;
+}
+.mobile-drawer {
+  display: none;
+}
+
+/* Drawer CSS */
+
+
+
+@media only screen and (max-width: 600px) {
+    .navbar{
+        padding: 1.5rem;
+    }
+    .logo{
+         font-size: 1rem;
+    }
+  .links {
+    display: none;
+  }
+  .mobile-drawer {
+    display: block;
+  }
+  .drawer-div{
+    height: 100vh;
+    padding: 1rem;
+    width: 40vw;
+    background-color: var(--black);
+}
+}

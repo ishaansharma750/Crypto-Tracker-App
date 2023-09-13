@@ -1,0 +1,14 @@
+.pagination-component{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+
+}
+
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
+    background-color: #e0d2d2;
+}
