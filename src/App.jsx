@@ -6,7 +6,7 @@ import ComparePage from "./pages/ComparePage";
 import WatchlistPage from "./pages/WatchlistPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 
 function App() {
   var cursor;

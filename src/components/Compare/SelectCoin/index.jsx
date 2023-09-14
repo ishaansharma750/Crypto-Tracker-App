@@ -1,5 +1,5 @@
 import { MenuItem, Select } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import SelectDays from "../../Coin/SelectDays";
 import "./style.css";
 

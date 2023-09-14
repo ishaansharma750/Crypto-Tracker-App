@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import BackToTop from "../components/Common/BackToTop";
 import Header from "../components/Common/Header";
 import Loader from "../components/Common/Loader";

@@ -1,4 +1,5 @@
 import Pagination from "@mui/material/Pagination";
+import React from "react";
 import "./style.css";
 function PaginationComponent({ pageNumber, handleChange }) {
   return (
