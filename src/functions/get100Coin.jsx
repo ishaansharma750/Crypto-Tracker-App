@@ -1,21 +1,23 @@
 import axios from "axios";
+import { API_URL } from "../constants";
 
-// "https://cors-anywhere.herokuapp.com/https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en"
-
-
-
-export const get100Coin = () => {
-  const myCoins = axios
-  .get(
-    
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en"
+ const get100Coins = () => {
+  const coins = axios
+    .get(
+      `${API_URL}/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false`
     )
     .then((response) => {
-      // console.log("data leo :", response.data);
-      return response.data;
+      if (response.status == 200) {
+        return response.data;
+      }
     })
     .catch((error) => {
-      console.log("Error fetching data:", error);
+      console.log("ERROR>>>", error);
     });
-  return myCoins;
+
+  if (coins) return coins;
+  else return;
 };
+
+
+export default get100Coins

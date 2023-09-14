@@ -1,9 +1,9 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import { converNumber } from "../../../functions/convertNumber";
+import { Chart as ChartJS } from "chart.js/auto"; //Dont get rid of this
+import  convertNumbers  from "../../../functions/convertNumbers";
 
-const LineChart = ({ chartData, priceType, multiAxis }) => {
+function LineChart({ chartData, priceType, multiAxis }) {
   const options = {
     plugins: {
       legend: {
@@ -16,39 +16,42 @@ const LineChart = ({ chartData, priceType, multiAxis }) => {
       intersect: false,
     },
     scales: {
-      crypto1: {
+      y: {
         type: "linear",
         display: true,
         position: "left",
         ticks: {
-          // Include a dollar sign in the ticks
-          callback: function (value, index, ticks) {
-            if (priceType == "prices") {
-              return "$" + value.toLocaleString();
+          callback: function (value) {
+            if (priceType == "total_volumes") {
+              return convertNumbers(value);
+            } else if (priceType == "market_caps") {
+              return "$" + convertNumbers(value);
             } else {
-              return "$" + converNumber(value);
+              return "$" + value.toLocaleString();
             }
           },
         },
       },
-      crypto2: {
+      y2: multiAxis && {
         type: "linear",
         display: true,
         position: "right",
         ticks: {
-          // Include a dollar sign in the ticks
-          callback: function (value, index, ticks) {
-            if (priceType == "prices") {
-              return "$" + value.toLocaleString();
+          callback: function (value) {
+            if (priceType == "total_volumes") {
+              return convertNumbers(value);
+            } else if (priceType == "market_caps") {
+              return "$" + convertNumbers(value);
             } else {
-              return "$" + converNumber(value);
+              return "$" + value.toLocaleString();
             }
           },
         },
       },
     },
   };
+
   return <Line data={chartData} options={options} />;
-};
+}
 
 export default LineChart;

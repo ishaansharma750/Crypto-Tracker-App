@@ -1,13 +1,13 @@
 import { CircularProgress } from "@mui/material";
 import React from "react";
-import "./style.css"
+import "./style.css";
 
-const Loader = () => {
+function Loader() {
   return (
-    <div className="loder-div">
+    <div className="loader-wrapper">
       <CircularProgress />
     </div>
   );
-};
+}
 
 export default Loader;

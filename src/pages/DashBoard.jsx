@@ -1,77 +1,79 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import BackToTop from "../components/Common/BackToTop";
 import Header from "../components/Common/Header";
-import Tabs from "../components/Dashboard/Tabs";
-import SearchBar from "../components/Dashboard/Search";
-import PaginationComponent from "../components/Dashboard/Pagination";
 import Loader from "../components/Common/Loader";
-import BackToTop from "../components/Common/BackToTop/Index";
-import { get100Coin } from "../functions/get100Coin";
+import PaginationComponent from "../components/Dashboard/Pagination";
+import SearchComponent from "../components/Dashboard/Search";
+import TabsComponent from "../components/Dashboard/Tabs";
+import get100Coins  from "../functions/get100Coin";
 
-const DashBoard = () => {
+const DashboardPage = ( ) => {
+  const [loading, setLoading] = useState(false);
   const [coins, setCoins] = useState([]);
-  const [pageCoins, setPageCoins] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [paginatedCoins, setPaginatedCoins] = useState([]);
 
+
+  // For pagination of the page 
   const handlePageChange = (event, value) => {
-    setPage(value);
-    var prevIndex = (value - 1) * 12;
-    setPageCoins(coins.slice(prevIndex, prevIndex + 12));
+    setPageNumber(value);
+    var startingIndex = (value - 1) * 10;
+    setPaginatedCoins(coins.slice(startingIndex, startingIndex + 10));
   };
 
   const onChange = (e) => {
     setSearch(e.target.value);
-    console.log(e.target.value);
   };
 
 
-
-// filtering the coin For Search Result 
-  let filterCoins = coins.filter(
-    (item) =>
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.symbol.toLowerCase().includes(search.toLowerCase())
-  );
-
-
-
+  // for Updating Coins based on Search
+  var filteredCoins = coins.filter((coin) => {
+    if (
+      coin.name.toLowerCase().includes(search.toLowerCase()) ||
+      coin.symbol.toLowerCase().includes(search.toLowerCase())
+    ) {
+      return coin;
+    }
+  });
 
   useEffect(() => {
-    getCoin();
+    getData();
   }, []);
 
-  const getCoin = async () => {
-    const myCoins = await get100Coin();
-    if (myCoins) {
-      setCoins(myCoins);
-      setPageCoins(myCoins.slice(0, 11));
+  const getData = async () => {
+    setLoading(true);
+    const data = await get100Coins();
+    if (data) {
+      setCoins(data);
+      setPaginatedCoins(data.slice(0, 10));
       setLoading(false);
     }
   };
 
-
-
   return (
     <>
-      <Header />
+      <BackToTop />
       {loading ? (
         <Loader />
       ) : (
-        <div>
-          <SearchBar search={search} onChange={onChange} />
-          <Tabs coins={search ? filterCoins : pageCoins} />
+        <div style={{ minHeight: "90vh" }}>
+          <Header />
+          <SearchComponent search={search} onChange={onChange} />
+          <TabsComponent
+            coins={search ? filteredCoins : paginatedCoins}
+            setSearch={setSearch}
+          />
           {!search && (
             <PaginationComponent
-              handlePageChange={handlePageChange}
-              page={page}
+              pageNumber={pageNumber}
+              handleChange={handlePageChange}
             />
           )}
-          <BackToTop />
         </div>
       )}
     </>
   );
-};
+}
 
-export default DashBoard;
+export default DashboardPage;

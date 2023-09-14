@@ -1,27 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { ThemeProvider, createTheme } from "@mui/material";
-import Grid from "../Grid";
+import { Box, createTheme, ThemeProvider } from "@mui/material";
 import "./style.css";
+import Grid from "../Grid";
 import List from "../List";
+import Button from "../../Common/Button";
 
-export default function Tabs({ coins }) {
-  const [value, setValue] = useState("grid");
+function TabsComponent({ coins, isWatchlistPage, setSearch }) {
+  const [tabValue, setTabValue] = useState("grid");
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const style = {
-    color: "var(--white)",
-    width: "50vw",
-    fontSize: "1.2rem",
-    fontWeight: 600,
-    fontFamily: "Inter",
-    textTransform: "capitalize",
+    setTabValue(newValue);
   };
 
   const theme = createTheme({
@@ -32,32 +24,83 @@ export default function Tabs({ coins }) {
     },
   });
 
+  const style = {
+    color: "var(--white)",
+    width: "50vw",
+    fontSize: "1.2rem",
+    fontWeight: 600,
+    fontFamily: "Inter",
+    textTransform: "capitalize",
+  };
+
   return (
-    <div>
+    <Box>
       <ThemeProvider theme={theme}>
-        <TabContext value={value}>
-          <TabList onChange={handleChange} variant="fullWidth">
+        <TabContext value={tabValue}>
+          <TabList variant="fullWidth" onChange={handleChange}>
             <Tab label="Grid" value="grid" sx={style} />
             <Tab label="List" value="list" sx={style} />
           </TabList>
-          <TabPanel value="grid">
-            <div className="grid-flex">
-              {coins.length === 0 ? (
-                <p>Not Found</p>
+          <TabPanel value="grid" className="tabPanel">
+            <Box className="grid-flex">
+              {coins.length == 0 ? (
+                <div>
+                  <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
+                    No Items Found
+                  </h1>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Button
+                      text={"Clear Search"}
+                      onClick={(e) => {
+                        setSearch("");
+                      }}
+                    />
+                  </div>
+                </div>
               ) : (
-                coins.map((coin) => <Grid coin={coin} key={coin.id} />) // Make sure to add a unique key prop
+                coins?.map((coin, i) => (
+                  <Grid
+                    coin={coin}
+                    key={i}
+                    delay={((i + 5) % 5) * 0.1}
+                    isWatchlistPage={isWatchlistPage}
+                  />
+                ))
               )}
-            </div>
+            </Box>
           </TabPanel>
-          <TabPanel value="list">
-            <table className="list-table">
-              {coins.map((coin) => (
-                <List coin={coin} />
-              ))}
+          <TabPanel value="list" className="tabPanel">
+            <table className="list-flex">
+              {coins.length == 0 ? (
+                <div>
+                  <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
+                    No Items Found
+                  </h1>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Button
+                      text={"Clear Search"}
+                      onClick={(e) => {
+                        setSearch("");
+                      }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                coins?.map((coin, i) => (
+                  <List
+                    coin={coin}
+                    key={i}
+                    delay={(i % 10) * 0.1}
+                    isWatchlistPage={isWatchlistPage}
+                  />
+                ))
+              )}
             </table>
           </TabPanel>
         </TabContext>
       </ThemeProvider>
-    </div>
+    </Box>
   );
 }
+
+export default TabsComponent;

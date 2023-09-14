@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import "./style.css"
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import React, { useState } from "react";
+import "./style.css";
 
-const TogglePriceType = ({ priceType, handlePriceType }) => {
-  
-
+function PriceToggle({ priceType, handlePriceTypeChange }) {
   return (
-    <div className="toggle-prices">
+    <div className="toggle-div">
       <ToggleButtonGroup
+        color="primary"
         value={priceType}
         exclusive
-        onChange={handlePriceType}
+        onChange={handlePriceTypeChange}
         sx={{
-          "& .Mui-selected": {
+          "&.Mui-selected": {
             color: "var(--blue) !important",
           },
           borderColor: "var(--blue)",
@@ -30,15 +29,15 @@ const TogglePriceType = ({ priceType, handlePriceType }) => {
         <ToggleButton value="prices" className="toggle-btn">
           Price
         </ToggleButton>
-        <ToggleButton value="market_caps" className="toggle-btn">
-          Market Cap
-        </ToggleButton>
         <ToggleButton value="total_volumes" className="toggle-btn">
           Total Volume
+        </ToggleButton>
+        <ToggleButton value="market_caps" className="toggle-btn">
+          Market Cap
         </ToggleButton>
       </ToggleButtonGroup>
     </div>
   );
-};
+}
 
-export default TogglePriceType;
+export default PriceToggle;

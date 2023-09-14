@@ -1,57 +1,59 @@
-.navbar {
+.header {
   position: sticky;
   top: 0;
   background-color: var(--black);
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
 }
-.links {
+
+.header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.links-flex {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
+
 .link {
   color: var(--grey);
-  font-weight: 500;
-  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0px;
 }
-.logo {
-  font-size: 1.4rem;
-  font-weight: 500 !important;
-}
+
 .link:hover {
   color: var(--white);
   transition: all 0.3s;
+  cursor: pointer;
 }
-.mobile-drawer {
+.drawer-wrapper {
   display: none;
 }
 
-/* Drawer CSS */
+@media only screen and (max-width: 800px) {
+  .header {
+    padding: 1.5rem;
+  }
 
-
-
-@media only screen and (max-width: 600px) {
-    .navbar{
-        padding: 1.5rem;
-    }
-    .logo{
-         font-size: 1rem;
-    }
-  .links {
+  .links-flex {
     display: none;
   }
-  .mobile-drawer {
+  .drawer-wrapper {
     display: block;
   }
-  .drawer-div{
-    height: 100vh;
-    padding: 1rem;
+  .mobile-drawer {
     width: 40vw;
+    height: 100vh;
     background-color: var(--black);
-}
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

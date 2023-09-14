@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import "./style.css"
-import { get100Coin } from "../../../functions/get100Coin";
+import { MenuItem, Select } from "@mui/material";
+import React, { useState } from "react";
+import SelectDays from "../../Coin/SelectDays";
+import "./style.css";
 
-const SelectCoin = ({ crypto1, crypto2, handleCoinChange }) => {
-  const [allCoins, setAllCoins] = useState([]);
-
-  const style = {
+function SelectCoin({
+  allCoins,
+  coin1,
+  coin2,
+  days,
+  handleCoinChange,
+  handleDaysChange,
+}) {
+  const selectStyle = {
     height: "2.5rem",
     color: "var(--white)",
     "& .MuiOutlinedInput-notchedOutline": {
@@ -23,34 +27,18 @@ const SelectCoin = ({ crypto1, crypto2, handleCoinChange }) => {
     },
   };
 
-  
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    try {
-      const myCoins = await get100Coin();
-      setAllCoins(myCoins);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // console.log("data is 100 ",allCoins)
-
   return (
-    <div className="coin-flex">
+    <div className="select-flex">
       <p>Crypto 1</p>
       <Select
-        sx={style}
-        value={crypto1}
-        label="Crypto 1"
-        onChange={(event) => handleCoinChange(event, false)}>
+        className="select-coin"
+        value={coin1}
+        onChange={(e) => handleCoinChange(e, true)}
+        sx={selectStyle}>
         {allCoins
-          .filter((item) => item.id != crypto2)
-          .map((coin, i) => (
-            <MenuItem key={i} value={coin.id}>
+          .filter((coin) => coin.id != coin2)
+          .map((coin, index) => (
+            <MenuItem key={index} value={coin.id}>
               {coin.name}
             </MenuItem>
           ))}
@@ -58,20 +46,26 @@ const SelectCoin = ({ crypto1, crypto2, handleCoinChange }) => {
 
       <p>Crypto 2</p>
       <Select
-        sx={style}
-        value={crypto2}
-        label="Crypto 2"
-        onChange={(event) => handleCoinChange(event, true)}>
+        className="select-coin"
+        value={coin2}
+        onChange={(e) => handleCoinChange(e, false)}
+        sx={selectStyle}>
         {allCoins
-          .filter((item) => item.id != crypto1)
-          .map((coin, i) => (
-            <MenuItem key={i} value={coin.id}>
+          .filter((coin) => coin.id != coin1)
+          .map((coin, index) => (
+            <MenuItem key={index} value={coin.id}>
               {coin.name}
             </MenuItem>
           ))}
       </Select>
+
+      <SelectDays
+        days={days}
+        handleDaysChange={(e) => handleDaysChange(e)}
+        noText={true}
+      />
     </div>
   );
-};
+}
 
 export default SelectCoin;

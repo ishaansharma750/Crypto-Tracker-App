@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import { MenuItem, Select } from "@mui/material";
 import "./style.css";
 
-const SelectDays = ({ days, handleDaysChange , noPtag }) => {
- 
-
+function SelectDays({ days, handleDaysChange, noText }) {
   return (
     <div className="select-days">
-      {!noPtag && <p>Price Change in </p>}
+      {!noText && <p>Price Change in </p>}
       <Select
+        value={days}
+        onChange={handleDaysChange}
         sx={{
           height: "2.5rem",
           color: "var(--white)",
@@ -25,11 +23,7 @@ const SelectDays = ({ days, handleDaysChange , noPtag }) => {
             },
           },
         }}
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={days}
-        label="days"
-        onChange={handleDaysChange}>
+        className={noText && "select-coin"}>
         <MenuItem value={7}>7 Days</MenuItem>
         <MenuItem value={30}>30 Days</MenuItem>
         <MenuItem value={60}>60 Days</MenuItem>
@@ -38,6 +32,6 @@ const SelectDays = ({ days, handleDaysChange , noPtag }) => {
       </Select>
     </div>
   );
-};
+}
 
 export default SelectDays;

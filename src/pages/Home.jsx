@@ -1,14 +1,16 @@
-import React from 'react'
-import Header from '../components/Common/Header'
-import LandingPage from '../components/LandingPage'
+import React from "react";
+import Footer from "../components/Common/Footer";
+import Header from "../components/Common/Header";
+import LandingPageComponent from "../components/LandingPage/Intro";
 
-const Home = () => {
+function HomePage() {
   return (
     <div>
-        <Header/>
-        <LandingPage/>
+      <Header />
+      <LandingPageComponent />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default HomePage;
