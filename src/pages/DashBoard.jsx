@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from "react";
-import BackToTop from "../components/Common/BackToTop";
+import BackToTop from "../components/Common/BackToTop/BackToTop";
 import Header from "../components/Common/Header";
 import Loader from "../components/Common/Loader";
 import PaginationComponent from "../components/Dashboard/Pagination";
