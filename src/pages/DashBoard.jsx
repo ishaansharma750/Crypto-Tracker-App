@@ -41,6 +41,7 @@ const DashboardPage = ( ) => {
     getData();
   }, []);
 
+  // Getting the coin data from the api
   const getData = async () => {
     setLoading(true);
     const data = await get100Coins();
